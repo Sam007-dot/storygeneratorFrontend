@@ -78,37 +78,10 @@
             <button class="login-btn" type="submit">Login</button>
             <p class="error-message" id="error-message">Invalid credentials, please try again.</p>
             <a href="index.html" class="suggestion-link">Go to Suggestions Page</a>
+            <a href="register.html" class="suggestion-link">Register</a>
         </form>
     </div>
-<!-- 
-    <script>
-        function login() {
-            var username = document.getElementById("username").value.trim();
-            var password = document.getElementById("password").value.trim();
-            var errorMessage = document.getElementById("error-message");
-
-            if (!username || !password) {
-                errorMessage.textContent = "Please enter both username and password.";
-                errorMessage.style.display = "block";
-                return;
-            }
-
-            if (username === "admin" && password === "password") { 
-                localStorage.setItem("username", username); // Store username
-                window.location.href = "suggestion.html"; // Redirect
-            } else {
-                errorMessage.textContent = "Invalid credentials, please try again.";
-                errorMessage.style.display = "block";
-            }
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                login();
-            }
-        }
-    </script> -->
-    <script src="js/auth.js"></script>
+  <script src="js/auth.js"></script>
 
 </body>
 </html>
