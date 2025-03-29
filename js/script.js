@@ -15,7 +15,6 @@ function fetchUserProfile() {
     .then(user => {
         if (user.name) {
             document.getElementById('profileSection').innerHTML = `
-                <img src="${user.profilePicture || 'default-avatar.jpg'}" alt="Profile" class="profile-pic">
                 <span class="username">${user.name}</span>
                 <button onclick="logoutUser()" class="cta-button logout">Logout</button>
             `;
