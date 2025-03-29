@@ -6,7 +6,7 @@ function fetchUserProfile() {
         return; // User is not logged in
     }
 
-    fetch(`http://localhost:5000/api/users/profile/${userId}`, { // Replace with your actual API URL
+    fetch(`https://storygeneratorbackend-ytdf.onrender.com/users/profile/${userId}`, { // Replace with your actual API URL
         headers: {
             'Authorization': `Bearer ${token}`
         }
