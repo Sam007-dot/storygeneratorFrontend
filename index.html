@@ -49,6 +49,28 @@ header {
     right: 20px;
     text-decoration: none;
 }
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid #fff;
+}
+
+#profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
 
 h1 {
     font-size: 3.5em;
@@ -185,8 +207,16 @@ footer {
 </head>
 <body>
     <header>
+        <div id="user-section">
+            <a href="login.html" id="loginBtn" class="loginBtn cta-button">Login</a>
+            <div id="profile-section" class="hidden">
+                <img id="profilePic" src="default-avatar.png" alt="Profile Picture" class="profile-pic">
+                <span id="username">User</span>
+                <button id="logoutBtn" class="cta-button">Logout</button>
+            </div>
+        </div>
+        
         <div class="hero">
-            <a href="login.html" class="loginBtn cta-button">Login</a>
             <div class="hero-content animate-fade-in">
                 <h1>Unleash Your Inner Storyteller</h1>
                 <p>Craft immersive and captivating narratives with our interactive story generator.</p>
@@ -261,14 +291,13 @@ footer {
         </div>
     </footer>
     
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
   AOS.init({
     once: true,  // Ensures animation only runs once per session
     delay: 100,  // Adds a slight delay for smoother effect
 });
-
 </script>
 </body>
 </html>
