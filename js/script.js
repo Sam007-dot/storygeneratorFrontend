@@ -1,41 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const loginBtn = document.getElementById("loginBtn");
-    const profileSection = document.getElementById("profile-section");
-    const profilePic = document.getElementById("profilePic");
-    const username = document.getElementById("username");
-    const logoutBtn = document.getElementById("logoutBtn");
+function fetchUserProfile() {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
 
-    // Function to fetch user details
-    function fetchUser() {
-        fetch("https://storygeneratorbackend-ytdf.onrender.com/api/user")  // Adjust API endpoint as per backend
-            .then(response => response.json())
-            .then(data => {
-                if (data.loggedIn) {
-                    // Hide Login Button & Show Profile Section
-                    loginBtn.classList.add("hidden");
-                    profileSection.classList.remove("hidden");
-
-                    // Set User Details
-                    username.textContent = data.username;
-                    profilePic.src = data.profilePic || "default-avatar.png";
-                } else {
-                    loginBtn.classList.remove("hidden");
-                    profileSection.classList.add("hidden");
-                }
-            })
-            .catch(error => console.error("Error fetching user:", error));
+    if (!token || !userId) {
+        return; // User is not logged in
     }
 
-    // Logout Functionality
-    logoutBtn.addEventListener("click", function () {
-        fetch("https://storygeneratorbackend-ytdf.onrender.com/api/logout", { method: "POST" })  // Adjust API endpoint as per backend
-            .then(() => {
-                sessionStorage.removeItem("user");  // Remove session data if stored
-                window.location.reload();  // Refresh page
-            })
-            .catch(error => console.error("Logout failed:", error));
-    });
+    fetch(`http://localhost:5000/api/users/profile/${userId}`, { // Replace with your actual API URL
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => response.json())
+    .then(user => {
+        if (user.name) {
+            document.getElementById('profileSection').innerHTML = `
+                <img src="${user.profilePicture || 'default-avatar.jpg'}" alt="Profile" class="profile-pic">
+                <span class="username">${user.name}</span>
+                <button onclick="logoutUser()" class="cta-button logout">Logout</button>
+            `;
+        }
+    })
+    .catch(error => console.error('Error fetching user profile:', error));
+}
 
-    // Initial Fetch Call
-    fetchUser();
-});
+
+
+function logoutUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    document.getElementById('profileSection').innerHTML = `
+        <a href="login.html" class="loginBtn cta-button">Login</a>
+    `;
+}
