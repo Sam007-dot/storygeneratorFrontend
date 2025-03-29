@@ -33,3 +33,6 @@ function logoutUser() {
         <a href="login.html" class="loginBtn cta-button">Login</a>
     `;
 }
+
+document.addEventListener("DOMContentLoaded", fetchUserProfile);
+
