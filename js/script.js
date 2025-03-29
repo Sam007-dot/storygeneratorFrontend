@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch user details
     function fetchUser() {
-        fetch("/api/user")  // Adjust API endpoint as per backend
+        fetch("https://storygeneratorbackend-ytdf.onrender.com/api/user")  // Adjust API endpoint as per backend
             .then(response => response.json())
             .then(data => {
                 if (data.loggedIn) {
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Logout Functionality
     logoutBtn.addEventListener("click", function () {
-        fetch("/api/logout", { method: "POST" })  // Adjust API endpoint as per backend
+        fetch("https://storygeneratorbackend-ytdf.onrender.com/api/logout", { method: "POST" })  // Adjust API endpoint as per backend
             .then(() => {
                 sessionStorage.removeItem("user");  // Remove session data if stored
                 window.location.reload();  // Refresh page
