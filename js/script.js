@@ -1,37 +1,42 @@
-function fetchUserProfile() {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-
-    if (!token || !userId) {
-        return; // User is not logged in
+// 🚀------------------- LOAD USER PROFILE ON PAGE LOAD -------------------🚀
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      // 🔑 Retrieve stored authentication details
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+  
+      if (!userId || !token) {
+        alert('User not authenticated. Please log in.');
+        return;
+      }
+  
+      // 🌐 Fetch user profile from backend
+      const response = await fetch(`https://tutorji.onrender.com/api/users/profile/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch profile data!');
+      }
+  
+      const { profilePicture, name, email} = await response.json();
+  
+      // 📝 Populate user profile fields
+      const profileFields = {
+        profilePicture: profilePicture || 'default-profile.png', // Fallback if no profile picture
+        name,
+        email,
+      };
+  
+      Object.entries(profileFields).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.tagName === 'IMG' ? (element.src = value) : (element.textContent = value || 'N/A');
+        }
+      });
+  
+    } catch (error) {
+      console.error('Profile Fetch Error:', error);
+      alert('An error occurred while fetching profile data. Please try again.');
     }
-
-    fetch(`https://storygeneratorbackend-ytdf.onrender.com/users/profile/${userId}`, { // Replace with your actual API URL
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => response.json())
-    .then(user => {
-        if (user.name) {
-            document.getElementById('profileSection').innerHTML = `
-                <span class="username">${user.name}</span>
-                <button onclick="logoutUser()" class="cta-button logout">Logout</button>
-            `;
-        }
-    })
-    .catch(error => console.error('Error fetching user profile:', error));
-}
-
-
-
-function logoutUser() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    document.getElementById('profileSection').innerHTML = `
-        <a href="login.html" class="loginBtn cta-button">Login</a>
-    `;
-}
-
-document.addEventListener("DOMContentLoaded", fetchUserProfile);
-
+  });
