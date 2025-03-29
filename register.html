@@ -80,42 +80,6 @@
             <a href="login.html" class="login-link">Already have an account? Login here</a>
         </form>
     </div>
-    <script>
-        document.getElementById("registerForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const name = document.getElementById("name").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const errorMessage = document.getElementById("error-message");
-
-            if (!name || !email || !password) {
-                errorMessage.textContent = "All fields are required.";
-                errorMessage.style.display = "block";
-                return;
-            }
-
-            try {
-                const response = await fetch("/api/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ name, email, password })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    alert("Registration successful! You can now log in.");
-                    window.location.href = "login.html";
-                } else {
-                    errorMessage.textContent = data.error || "Registration failed.";
-                    errorMessage.style.display = "block";
-                }
-            } catch (error) {
-                errorMessage.textContent = "An error occurred. Please try again later.";
-                errorMessage.style.display = "block";
-            }
-        });
-    </script>
+    <script src="js/register.js"></script>
 </body>
 </html>
