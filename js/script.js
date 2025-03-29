@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
   
       // 🌐 Fetch user profile from backend
-      const response = await fetch(`https://tutorji.onrender.com/api/users/profile/${userId}`, {
+      const response = await fetch(`https://storygeneratorbackend-ytdf.onrender.com/api/users/profile/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   
